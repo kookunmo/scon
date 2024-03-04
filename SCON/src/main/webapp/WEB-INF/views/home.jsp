@@ -2,9 +2,9 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<title>Home</title>
+   <title>Home</title>
 </head>
 <body>
-	<a href="/main">board</a>
+   <a href="/main">board</a>
 </body>
 </html>

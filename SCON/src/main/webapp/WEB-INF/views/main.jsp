@@ -191,16 +191,16 @@ $(document).ready(function(){
                         <section class="mb-5" style="height: auto;">
                             <c:forEach items="${list}" var="main"> 
                                 <div style="width: auto; height: 120px; overflow: auto;">
-							        <div style="width: 150px; height: 105px; margin: 5px; padding: 5px; float: left;">
-							        <img src="../resources/img/${main.fileurl}" alt="이미지" style="width: 100%; height: 100%; object-fit: cover;">
-							        </div>
-							        <div style="width: 670px; height: 105px; margin: 5px; padding: 5px; float: left;">
-							        <c:out value="${main.title}"></c:out>
-							        <br><br>
-							        <c:out value="${main.content}"></c:out>
-							        </div>
-							    </div>
-						    	<hr>
+                             <div style="width: 150px; height: 105px; margin: 5px; padding: 5px; float: left;">
+                             <img src="../resources/img/${main.fileurl}" alt="이미지" style="width: 100%; height: 100%; object-fit: cover;">
+                             </div>
+                             <div style="width: 670px; height: 105px; margin: 5px; padding: 5px; float: left;">
+                             <c:out value="${main.title}"></c:out>
+                             <br><br>
+                             <c:out value="${main.content}"></c:out>
+                             </div>
+                         </div>
+                         <hr>
      
                                 </c:forEach>
                         </section>

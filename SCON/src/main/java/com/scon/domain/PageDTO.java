@@ -1,14 +1,8 @@
 package com.scon.domain;
 
-
 import lombok.Data;
-import lombok.Getter;
-import lombok.ToString;
 
 @Data
-@Getter
-@ToString
-
 public class PageDTO {
 	private Criteria cri;
 	private int total;

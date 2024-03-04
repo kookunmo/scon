@@ -23,58 +23,56 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class NboardController {
 
-	//자동주입
-	private NboardService service;
+   //자동주입
+   private NboardService service;
 
-	//목록 GET -- main page
-	@GetMapping("/main")
-	public void main(Criteria cri, Model model) {
-		model.addAttribute("list", service.getList(cri));
-		
-		int total = service.getTotal(cri); // 전체글수
-		model.addAttribute("pageMaker", new PageDTO(cri, total));
-		
-	}
-	
-	
-	
-	////////////////////////////////////////////////////////////////////////////
-	//등록 GET
-	@GetMapping("/register")
-	public void register() {}
+   //목록 GET -- main page
+   @GetMapping("/main")
+   public void main(Criteria cri, Model model) {
+      model.addAttribute("list", service.getList(cri));
+      
+      int total = service.getTotal(cri); // 전체글수
+      model.addAttribute("pageMaker", new PageDTO(cri, total));
+   }
 
-	//등록 POST
-	@PostMapping("/register")
-	public String register(NboardVO board, RedirectAttributes rttr) {
-		return "redirect:";
-	}
-	////////////////////////////////////////////////////////////////////////////
-	
-	
-	//상세보기 GET  
-	@GetMapping({"/get"})
-	public void get(@RequestParam("bno") Long bno, @ModelAttribute("cri") Criteria cri , Model model ) {
-		
-	}
-	
-	// 수정 GET
-	@GetMapping({"/modify"})
-	public void modify(@RequestParam("bno") Long bno, @ModelAttribute("cri") Criteria cri , Model model ) {}
-	
-	// 수정 POST
-	@PostMapping("/modify")
-	public String modify(NboardVO board, RedirectAttributes rttr) {
-		return "redirect:";
-	}
-	
-	// 삭제 POST
-	@PostMapping("/remove")
-	public String remove(@RequestParam("bno") Long bno,  RedirectAttributes rttr) {
-		
-		return "redirect:";
-	}
-	
-	
-	
+   ////////////////////////////////////////////////////////////////////////////
+   //등록 GET
+   @GetMapping("/register")
+   public void register() {}
+
+   //등록 POST
+   @PostMapping("/register")
+   public String register(NboardVO board, RedirectAttributes rttr) {
+      return "redirect:/main";
+   }
+   ////////////////////////////////////////////////////////////////////////////
+   
+   
+   //상세보기 GET  
+   @GetMapping({"/get"})
+   public void get(@RequestParam("bno") Long bno, @ModelAttribute("cri") Criteria cri , Model model ) {
+	   model.addAttribute("board", service.get(bno)); // 특정 게시글을 모델에 추가
+   }
+   
+   
+   // 수정 GET
+   @GetMapping({"/modify"})
+   public void modify(@RequestParam("bno") Long bno, @ModelAttribute("cri") Criteria cri , Model model ) {}
+   
+   // 수정 POST
+   @PostMapping("/modify")
+   public String modify(NboardVO board, RedirectAttributes rttr) {
+      return "redirect:";
+   }
+   
+   // 삭제 POST
+   @PostMapping("/remove")
+   public String remove(@RequestParam("bno") Long bno,  RedirectAttributes rttr) {
+      
+      return "redirect:";
+   }
+   
+   
+   
 
 }
