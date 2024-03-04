@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.scon.domain.Criteria;
 import com.scon.domain.NboardVO;
+import com.scon.domain.PageDTO;
 import com.scon.service.NboardService;
 
 import lombok.AllArgsConstructor;
@@ -18,7 +19,7 @@ import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
-@RequestMapping("/board/*")
+@RequestMapping("/*")
 @AllArgsConstructor
 public class NboardController {
 
@@ -26,8 +27,16 @@ public class NboardController {
 	private NboardService service;
 
 	//목록 GET -- main page
-	@GetMapping("/list")
-	public void list(Criteria cri, Model model) {}
+	@GetMapping("/main")
+	public void main(Criteria cri, Model model) {
+		model.addAttribute("list", service.getList(cri));
+		
+		int total = service.getTotal(cri); // 전체글수
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
+		
+	}
+	
+	
 	
 	////////////////////////////////////////////////////////////////////////////
 	//등록 GET
