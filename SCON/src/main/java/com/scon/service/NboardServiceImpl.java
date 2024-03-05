@@ -66,5 +66,56 @@ public class NboardServiceImpl implements NboardService{
 	public void saveFile(FileVO vo) {
 		mapper.saveFile(vo);
 	}
+
+	
+	///////////////////////////////
+	@Override
+	public List<NboardVO> getIT() {
+		return mapper.getIT();
+	}
+	@Override
+	public List<NboardVO> getAI() {
+		return mapper.getAI();
+	}
+	@Override
+	public List<NboardVO> getSPACE() {
+		return mapper.getSPACE();
+	}
+	@Override
+	public List<NboardVO> getNATURE() {
+		return mapper.getNATURE();
+	}
+	///////////////////////////////
+	
+	@Override
+	public void updateReadCount(Long bno) {
+			mapper.updateReadCount(bno);
+	}
+
+	@Override
+	public List<NboardVO> getList1(Criteria cri) {
+		// TODO Auto-generated method stub
+		return mapper.getListWithPaging1(cri);
+	}
+
+	@Override
+	public List<NboardVO> getList2(Criteria cri) {
+		// TODO Auto-generated method stub
+		return mapper.getListWithPaging2(cri);
+	}
+
+	@Override
+	public List<NboardVO> getList3(Criteria cri) {
+		// TODO Auto-generated method stub
+		return mapper.getListWithPaging3(cri);
+	}
+
+	@Override
+	public List<NboardVO> getList4(Criteria cri) {
+		// TODO Auto-generated method stub
+		return mapper.getListWithPaging4(cri);
+	}
+
+
 	
 }

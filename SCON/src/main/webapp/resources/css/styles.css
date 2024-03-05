@@ -14,7 +14,22 @@
  .navbar-nav .nav-link {
   margin-right: 40px; /* 원하는 간격으로 조정하세요 */
 }
+/* 구씨의 추가 */
+pre{
+	white-space: pre-wrap;
+    word-wrap: break-word;
+}
+a {
+    text-decoration: none !important;
+    color: black !important;
+    /* 기본 하이퍼링크 스타일을 제거하여 파란색 밑줄이 없어집니다. */
+}
 
+
+.ranking-tabs>div>ul>li{
+	list-style-type: decimal;
+}
+/* 구씨의 추가.end */
 .navbar-toggler {
   margin-left: auto;
 }
@@ -61,6 +76,89 @@
   text-decoration: none;
   color: inherit;
 }
+
+  /*헤더부분***********************************/
+        #header{ 
+           display: block;  
+           width: 100%; 
+           height:80px; 
+           background-color:#212529;
+           position: relative;
+       } 
+       .logo{
+            position: absolute; 
+            left: 0;
+            width:30%;
+            height: 100%;
+            background: #212529;
+
+        }
+        .logo2{
+            position: absolute;
+            left:28%; 
+            width: 50%;
+            height: 100%;
+            background: #212529;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .logo2 img {
+            
+            width: 80%;
+            height: 100%;
+            object-fit: cover; 
+
+        }
+        .mypage{
+            position: absolute;
+            left:75%; 
+            width: auto;
+            height: 100%;
+            background:#212529;
+        }
+        /*헤더부분***********************************/
+        #nav{
+           display: block; 
+           width: 100%; 
+           height:50px; 
+           background-color:blue;
+           position: relative;
+       }
+/*네비게이션 바***********************************/
+
+.tabs {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.tab-link {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    margin-right: 5px;
+}
+
+.tab-content {
+    display: none;
+    padding: 20px;
+    border: 1px solid #ddd;
+    margin-top: 5px;
+}
+
+.tab-content.current {
+    display: block;
+}
+
+.tab-link.current {
+    background-color: #ddd;
+}
+
+
+       
 /* 윤기가 추가한 것 ***************************/
 :root {
   --bs-blue: #0d6efd;

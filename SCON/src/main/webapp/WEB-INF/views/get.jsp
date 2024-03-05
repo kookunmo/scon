@@ -18,72 +18,21 @@
         *{
            padding:0; margin:0; text-decoration:none; 
         }
-        /*헤더부분***********************************/
-        #header{ 
-           display: block;  
-           width: 100%; 
-           height:80px; 
-           background-color:red; 
-           position: relative;
-       } 
-       .logo{
-            position: absolute; 
-            left: 0;
-            width:30%;
-            height: 100%;
-            background: #212529;
-
-        }
-        .logo2{
-            position: absolute;
-            left:25%; 
-            width: 50%;
-            height: 100%;
-            background: #212529;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .logo2 img {
-            
-            width: 100%;
-            height: 100%;
-            object-fit: cover; 
-
-        }
-        .mypage{
-            position: absolute;
-            left:75%; 
-            width: 25%;
-            height: 100%;
-            background:#212529;
-        }
-        /*헤더부분***********************************/
-        #nav{
-           display: block; 
-           width: 100%; 
-           height:50px; 
-           background-color:blue;
-           position: relative;
-       }
-/*네비게이션 바***********************************/
-
-</style>
+        
+	</style>
 
 </head>
 <body>
-    <div id="header"><!--전체 감싸기-->
+   <div id="header"><!--전체 감싸기-->
         <div class="logo">로고</div>
         <div class="logo2">
-            <a href="main" style="height: 100%;">
+            <a href="/main">
                 <img src="../resources/img/로고 copy.png" alt="로고 위치" >
             </a>
         </div>
         <div class="mypage">
             <a class="btn btn-primary" href="#top">관리자</a>
         </div>
-        
   </div>
          <!-- Responsive navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -148,11 +97,11 @@
 							</c:choose>
 						</figure>
 
-						<p><c:out value="*출처: ${board.fileinfo}"/></p>
+						<p><c:out value="*사진정보: ${board.fileinfo}"/></p>
 						<br>
                         <!-- Post content-->
                         <section class="mb-5">
-                            <p class="fs-5 mb-4"><c:out value="${board.content}"/></p>
+                            <p class="fs-5 mb-4"><pre><c:out value="${board.content}"/></pre>
                         </section>
                         
                     </article>

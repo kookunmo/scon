@@ -27,7 +27,23 @@ public interface NboardService {
 	
 	//목록 with paging
 	public List<NboardVO> getList(Criteria cri);
+	public List<NboardVO> getList1(Criteria cri);
+	public List<NboardVO> getList2(Criteria cri);
+	public List<NboardVO> getList3(Criteria cri);
+	public List<NboardVO> getList4(Criteria cri);
+	
 	
 	//사진올리기
 	public void saveFile(FileVO vo);
+	
+	//순위 처리
+	public List<NboardVO> getIT();
+	public List<NboardVO> getAI();
+	public List<NboardVO> getSPACE();
+	public List<NboardVO> getNATURE();
+	
+	
+	public void updateReadCount(Long bno);
+//	public List<NboardVO> getWeek();
+//	public List<NboardVO> getMonth();
 }

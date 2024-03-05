@@ -15,6 +15,10 @@ public interface NboardMapper {
 	// 페이징 처리를 포함하여 게시판의 글 목록을 조회하는 메서드입니다.
     // Criteria 객체를 통해 페이지 번호, 페이지당 표시되는 게시글 수 등의 정보를 전달받습니다.
 	public List<NboardVO> getListWithPaging(Criteria cri);
+	public List<NboardVO> getListWithPaging1(Criteria cri);
+	public List<NboardVO> getListWithPaging2(Criteria cri);
+	public List<NboardVO> getListWithPaging3(Criteria cri);
+	public List<NboardVO> getListWithPaging4(Criteria cri);
 	
 	//등록
 	// 새로운 게시글을 등록하는 메서드입니다.
@@ -40,5 +44,16 @@ public interface NboardMapper {
 	//파일업로드//어케쓸지 모르겟음
 	public void saveFile(FileVO vo);
 
-
+	//순위처리	
+	public List<NboardVO> getIT();
+	public List<NboardVO> getAI();
+	public List<NboardVO> getSPACE();
+	public List<NboardVO> getNATURE();
+	
+	//조회수 올리기
+	public void updateReadCount(Long bno);
+	
+//	public List<NboardVO> getWeek();
+//	public List<NboardVO> getMonth();
+	
 }
