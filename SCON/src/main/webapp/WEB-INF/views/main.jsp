@@ -14,6 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+
 $(document).ready(function(){
     // 마우스 올렸을 때 이벤트
     $(".tab-link").mouseenter(function(){
@@ -40,19 +41,43 @@ $(document).ready(function(){
     $('#tab-1').addClass('current');
     
 
-  
+   
+	
+
 });
+
+
+$(document).ready(function () {
+    var visibleItems = 5;
+    var totalItems = ${fn:length(list)};
+    $("#loadMoreBtn").click(function () {
+        $(".item:lt(" + (visibleItems + 5) + ")").slideDown(); // 추가로 5개의 아이템을 표시
+        visibleItems += 5;
+        if (visibleItems >= totalItems) {
+            $("#loadMoreBtn").hide(); // 모든 아이템이 표시되면 버튼을 숨김
+            $("#flipBtn").show(); // flip 버튼을 표시
+        }
+    });
+
+    $("#flipBtn").click(function () {
+        location.reload();
+    });
+    // Initially hide the flipBtn
+    $("#flipBtn").hide();
+});
+
+
+
 </script>
 
     <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
-    <link href="../resources/css/styles.css" rel="stylesheet" />
-    <style>
+    
+<link href="../resources/css/styles.css" rel="stylesheet" />
+<style>
         *{
            padding:0; margin:0; text-decoration:none; 
         }
-      
-       </style>
+</style>
 </head>
 <body>
     <div id="header"><!--전체 감싸기-->
@@ -90,8 +115,25 @@ $(document).ready(function(){
                 <div class="col-lg-8">
                     <!-- Post content-->
                     <article>
-                        <div class="card mb-4">
+                        <div class="card mb-4" >
+                        <a href="/insert">글쓰기</a>
                         </div>
+                        	<c:if test="${pageMaker.cri.keyword !=null}">
+                        		<h4>
+								<c:choose>
+									<c:when test="${pageMaker.cri.type=='T'}">
+								    		제목
+								    </c:when>
+								    <c:when test="${pageMaker.cri.type=='C'}">
+								    		내용
+								    </c:when>
+								    <c:when test="${pageMaker.cri.type=='W'}">
+								    		작성자
+								    </c:when>
+								</c:choose>  
+								-<strong>'${pageMaker.cri.keyword}'</strong> 검색결과 </h4>
+                        	</c:if>
+                        	<c:if test="${pageMaker.cri.keyword ==null}">
                         	<h4>헤드라인 뉴스 - 
 		                      	<c:if test="${ccode == '0'}">최신</c:if>
 								<c:if test="${ccode == '1'}">AI</c:if>
@@ -99,36 +141,73 @@ $(document).ready(function(){
 								<c:if test="${ccode == '3'}">우주</c:if>
 								<c:if test="${ccode == '4'}">자연</c:if>
                        		</h4>
+                       		</c:if>
                         <!-- Post content-->
                         <section class="mb-5" style="height: auto;">
-                            <c:forEach items="${list}" var="main"> 
-                                <div style="width: auto; height: 120px; overflow: auto;">
-                             <div style="width: 150px; height: 105px; margin: 5px; padding: 5px; float: left;">
-                             <img src="../resources/img/${main.fileurl}" alt="이미지" style="width: 100%; height: 100%; object-fit: cover;">
-                             </div>
-                             <div style="width: 670px; height: 105px; margin: 5px; padding: 5px; float: left;">
-                                <a href="/get?bno=${main.bno}">
-                                         <p><strong><c:out value="${main.title}"></c:out></strong></p>
-                                         
-                                         <c:out value="${fn:substring(main.content, 0, 80)}"/> ${fn:length(main.content) > 80 ? '...' : ''}
-                                      </a>
-                                
-                             </div>
-                         </div>
-                         <hr>
-     
-                                </c:forEach>
-                        </section>
+						<c:forEach items="${list}" var="main" varStatus="loop">
+							<div class="item"
+								style="width: auto; height: 150px; overflow: auto; display: ${loop.index < 5 ? 'block' : 'none'};">
+								<div
+									style="width: auto; height: 150px; overflow: auto; overflow-y: hidden; overflow-x: hidden;">
+									<div
+										style="width: 150px; height: 105px; margin: 5px; padding: 5px; float: left;">
+										<img src="../resources/img/${main.fileurl}" alt="이미지"
+											style="width: 100%; height: 100%; object-fit: cover;">
+									</div>
+									<div
+										style="width: 500px; height: 105px; margin: 5px; padding: 5px; float: left; font-size: small;">
+										<a href="/get?bno=${main.bno}">
+											<p style="font-weight: bold; font-size: 16px;">
+												<c:out value="${main.title}"></c:out>
+											</p> <c:out value="${fn:substring(main.content, 0, 80)}" />
+											${fn:length(main.content) > 80 ? '...' : ''}
+
+											<table style="width: 100%; margin-top: 2%;">
+												<tr>
+													<td class="dateCell"
+														style="padding: 10px; text-align: left;">
+														<div>
+															<span class="label">등록날짜:</span>
+															<fmt:formatDate value="${main.wdate}"
+																pattern="yyyy년 MM월 dd일 " />
+														</div>
+													</td>
+
+													<td></td>
+													<td></td>
+													<td></td>
+
+													<td class="authorCell"
+														style="padding: 10px; text-align: left;">
+														<div>
+															<span class="label">글쓴이:</span>
+															<c:out value="${main.writer}"></c:out>
+														</div>
+													</td>
+												</tr>
+											</table>
+
+										</a>
+									</div>
+								</div>
+							</div>
+							<hr style="display: ${loop.index < 5 ? 'block' : 'none'};">
+						</c:forEach>
+					</section>
                         
                     </article>
                     <!-- Comments section-->
                     <section class="mb-5">
-                        <div class="card bg-light">
-                            <div class="card-body">
-                               <a href="#" style="width: 100%; border: none; display: block; text-align: center; color: black; padding: 10px 0; text-decoration: none;">더보기 +</a>
-                            </div>
-                        </div>
-                    </section>
+					<div class="card bg-light">
+						<div class="card-body">
+							<button type="button" id="loadMoreBtn"
+								style="width: 100%; border: none; display: block; text-align: center; color: black; padding: 10px 0; text-decoration: none;">더보기</button>
+							<button type="button" id="flipBtn"
+								style="width: 100%; border: none; display: block; text-align: center; color: black; padding: 10px 0; text-decoration: none;">접기</button>
+
+						</div>
+					</div>
+				</section>
                 </div>
                 <!-- Side widgets-->
                 <div class="col-lg-4">
@@ -137,16 +216,16 @@ $(document).ready(function(){
                         <div class="card-header">검색하기</div>
                         <div class="card-body">
                             <form id="searchForm" method="get">
-                                     <select name="type" style="width: 90px; height: 35px;">
-                                        <option value="T" selected>제목</option>
-                                        <option value="C">내용</option>
-                                        <option value="W">작성자</option>
-                                     </select>
-                                     <input name="keyword" style="width: 200px; height: 35px;">
-                                     <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
-                                    <input type="hidden" name="amount" value="${pageMaker.cri.amount}">   
-                                    <button class="btn btn-primary" id="button-search" type="button" style="width: 80px;">검색</button>
-                                  </form>
+	                            <select name="type" style="width: 90px; height: 35px;">
+	                                <option value="T" selected>제목</option>
+	                                <option value="C">내용</option>
+	                                <option value="W">기자명</option>	
+	                            </select>
+	                            <input name="keyword" style="width: 200px; height: 35px;">
+	                            <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+	                            <input type="hidden" id="amount" name="amount" value="${pageMaker.cri.amount}">
+	                            <button class="btn btn-primary" id="button-search" type="submit" style="width: 80px;">검색</button>
+                            </form>
                         </div>
                     </div>
                     <div class="card mb-4">
@@ -222,11 +301,12 @@ $(document).ready(function(){
                 </div>
             </div>
         </div>
-        <!-- Footer-->
+        
+		<!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; </p></div>
         </footer>
-
+		<!-- Footer.end-->
 
 </body>
 

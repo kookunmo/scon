@@ -28,7 +28,7 @@ public class NboardServiceImpl implements NboardService{
 	
 	@Override
 	public void register(NboardVO board) {
-		mapper.insertSelectkey(board);		
+		mapper.insert(board);		
 	}
 	
 	@Override
@@ -95,7 +95,7 @@ public class NboardServiceImpl implements NboardService{
 	@Override
 	public List<NboardVO> getList1(Criteria cri) {
 		// TODO Auto-generated method stub
-		return mapper.getListWithPaging1(cri);
+		return mapper.getListWithPaging1(cri );
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> <!-- JSTL Core 태그 라이브러리를 사용하기 위한 선언 -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> <!-- JSTL Format 태그 라이브러리를 사용하기 위한 선언 -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html>
 <html>
@@ -13,13 +14,43 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Core theme JS-->
     <script src="../resources/js/scripts.js"></script>
+    <script>
+$(document).ready(function(){
+    // 마우스 올렸을 때 이벤트
+    $(".tab-link").mouseenter(function(){
+        var tab_id = $(this).attr('data-tab');
+
+        $(".tab-link").removeClass('current');
+        $(".tab-content").removeClass('current');
+
+        $(this).addClass('current');
+        $("#"+tab_id).addClass('current');
+    });
+
+    // 마우스가 모든 탭에서 벗어났을 때 일간 탭으로 돌아가기
+    $(".ranking-tabs").mouseleave(function(){
+        $(".tab-link").removeClass('current');
+        $(".tab-content").removeClass('current');
+
+        $('.tab-link[data-tab="tab-1"]').addClass('current');
+        $('#tab-1').addClass('current');
+    });
+
+    // 페이지 로드 시 일간 탭 활성화
+    $('.tab-link[data-tab="tab-1"]').addClass('current');
+    $('#tab-1').addClass('current');
+    
+
+  
+});
+</script>
     <link href="../resources/css/styles.css" rel="stylesheet" />
     <style>
         *{
            padding:0; margin:0; text-decoration:none; 
         }
         
-	</style>
+   </style>
 
 </head>
 <body>
@@ -37,22 +68,52 @@
          <!-- Responsive navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
-                <button class="navbar-toggler ml-auto" type="button" data-bs-toggle="collapse" 
-                data-bs-target="#navbarSupportedContent" 
+                <button class="navbar-toggler ml-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
                     <ul class="navbar-nav mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">최신뉴스</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">자연</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">과학</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">it</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/main?ccode=${ca.ccode}">${ca.name}</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/main?ccode=0">New</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/main?ccode=1">AI</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/main?ccode=2">IT</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/main?ccode=3">우주</a></li>
+                        <li class="nav-item"><a class="nav-link"  href="/main?ccode=4">자연</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
+        <!-- 카테고리 코드 -->
+        <article>
+                        <div class="card mb-4">
+                        </div>
+                        <c:if test="${ccode == '0'}">최신</c:if>
+                        <c:if test="${ccode == '1'}">AI</c:if>
+                        <c:if test="${ccode == '2'}">IT</c:if>
+                        <c:if test="${ccode == '3'}">우주</c:if>
+                        <c:if test="${ccode == '4'}">자연</c:if>
+                        <!-- Post content-->
+                        <section class="mb-5" style="height: auto;">
+                            <c:forEach items="${list}" var="main"> 
+                                <div style="width: auto; height: 120px; overflow: auto;">
+                             <div style="width: 150px; height: 105px; margin: 5px; padding: 5px; float: left;">
+                             <img src="../resources/img/${main.fileurl}" alt="이미지" style="width: 100%; height: 100%; object-fit: cover;">
+                             </div>
+                             <div style="width: 670px; height: 105px; margin: 5px; padding: 5px; float: left;">
+                                <a href="/get?bno=${main.bno}">
+                                         <p><strong><c:out value="${main.title}"></c:out></strong></p>
+                                         
+                                         <c:out value="${fn:substring(main.content, 0, 80)}"/> ${fn:length(main.content) > 80 ? '...' : ''}
+                                      </a>
+                                
+                             </div>
+                         </div>
+                         <hr>
+     
+                                </c:forEach>
+                        </section>
+                        
+                    </article>
         <!-- Page content-->
         <div class="container mt-5">
             <div class="row">
@@ -70,35 +131,36 @@
                              
                             <!-- Post meta content-->
                             <div class="text-muted fst-italic mb-2">
-                            	<fmt:formatDate value="${board.wdate}" pattern="yyyy-MM-dd HH:mm" />
+                               <fmt:formatDate value="${board.wdate}" pattern="yyyy-MM-dd HH:mm" />
                             </div>
                            
                         <div class="ms-auto2">
-                            <a class="badge2 bg-secondary text-decoration-none link-light" href="#!">수정</a>
-                            <a class="badge2 bg-secondary text-decoration-none link-light" href="#!">삭제</a>
+                        
+                            <a class="badge2 bg-secondary text-decoration-none link-light" href="/modify?bno=${board.bno}">수정</a>
+                            <a class="badge2 bg-secondary text-decoration-none link-light" href="/remove?bno=${board.bno}">삭제</a>
                         </div>
                         </header>
                          <!-- 메인 광고1 -->
                         <div class="card mb-4">
-                        	<a href="https://www.naver.com/">
-                            	<img src="../resources/img/ad3.gif" class="card-img-top" alt="광고 이미지" width="900" height="150">
-                         	</a>
+                           <a href="https://www.naver.com/">
+                               <img src="../resources/img/ad3.gif" class="card-img-top" alt="광고 이미지" width="900" height="150">
+                            </a>
                         </div>
                         <!-- Preview image figure-->
                         <figure class="mb-4">
-	                        <c:choose>
-								<c:when test="${empty board.fileurl}">
-									<img src="../resources/img/noimage.jpg" style="width: 900px; height: 400px;"  >
-								</c:when>
-								<c:otherwise>
-									<img src="../resources/img/${board.fileurl}"
-										class="img-fluid rounded" alt="기사 사진" style="width: 900px; height: 400px;"  />
-								</c:otherwise>
-							</c:choose>
-						</figure>
+                           <c:choose>
+                        <c:when test="${empty board.fileurl}">
+                           <img src="../resources/img/noimage.jpg" style="width: 900px; height: 400px;"  >
+                        </c:when>
+                        <c:otherwise>
+                           <img src="../resources/img/${board.fileurl}"
+                              class="img-fluid rounded" alt="기사 사진" style="width: 900px; height: 400px;"  />
+                        </c:otherwise>
+                     </c:choose>
+                  </figure>
 
-						<p><c:out value="*사진정보: ${board.fileinfo}"/></p>
-						<br>
+                  <p><c:out value="*사진정보: ${board.fileinfo}"/></p>
+                  <br>
                         <!-- Post content-->
                         <section class="mb-5">
                             <p class="fs-5 mb-4"><pre><c:out value="${board.content}"/></pre>
@@ -155,50 +217,58 @@
                 <div class="col-lg-4">
                     <!-- Search widget-->
                     <div class="card mb-4">
-                        <div class="card-header">Search</div>
+                        <div class="card-header">검색하기</div>
                         <div class="card-body">
-                            <div class="input-group">
-                                <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                                <button class="btn btn-primary" id="button-search" type="button">Go!</button>
-                            </div>
+                            <form id="searchForm" action="/main" method="get">
+                                     <select name="type" style="width: 90px; height: 35px;">
+                                       <option value="T" selected>제목</option>
+                                        <option value="C">내용</option>
+                                        <option value="W">작성자</option>
+                                     </select>
+                                    <input name="keyword" style="width: 200px; height: 35px;">
+                                    <input type="hidden" name="pageNum" value="${cri.pageNum}">
+                                    <input type="hidden" name="amount" value="${cri.amount}">
+                                    
+                                    <button class="btn btn-primary" id="button-search" type="submit" style="width: 80px;">검색</button>
+                             </form>
                         </div>
                     </div>
                     <!-- 좌측 광고1 -->
                     <div class="card mb-4">
-					    <a href="https://www.tiktok.com/explore">
-					        <img src="../resources/img/ad2.jpg" class="card-img-top" alt="광고 이미지">
-					    </a>
-					</div>
+                   <a href="https://www.tiktok.com/explore">
+                       <img src="../resources/img/ad2.jpg" class="card-img-top" alt="광고 이미지">
+                   </a>
+               </div>
                     <!-- Categories widget-->
-                    <div class="card mb-4">
+                     <div class="card mb-4">
                         <div class="card-header">기사랭킹</div>
                         <div class="card-body" style="height: 290px;">
                             <div class="ranking-tabs">
                                 <ul class="tabs">
-                                    <li class="tab-link current" data-tab="tab-1" style="width: 32%;">일간</li>
-                                    <li class="tab-link" data-tab="tab-2" style="width: 32%;">주간</li>
-                                    <li class="tab-link" data-tab="tab-3" style="width: 32%;">월간</li>
+                                    <li class="tab-link" data-tab="tab-1" style="width: 24%;">AI</li>
+                                    <li class="tab-link" data-tab="tab-2" style="width: 24%;">IT</li>
+                                    <li class="tab-link" data-tab="tab-3" style="width: 24%;">우주</li>
+                                    <li class="tab-link" data-tab="tab-4" style="width: 24%;">자연</li>
                                 </ul>
                                 <div id="tab-1" class="tab-content current" style="border: none;">
                                     <!-- 일간 내용 -->
                                     <ul>
-                                        <li>이경무 CSS 짱</li>
-                                        <li>황윤기 그만 하고 쉬어</li>
-                                        <li>홍상기 폰코딩 대단해 폰코딩 어떻게 하는거야</li>
-                                        <li>정다은 필기대마왕 나중에 필기노트 꼭 공유해</li>
-                                        <li>이원준 억까 맨날당해 이제 그만 당해</li>
-                                       
+                                    <c:forEach items="${IT}" var="IT"> 
+                                        <li><a href="/get?bno=${IT.bno}">
+                                        <c:out value="${fn:substring(IT.title, 0, 20)}"/> ${fn:length(IT.title) > 20 ? '...' : ''}
+                                        </a></li>
+                                    </c:forEach>
                                         <!-- 기타 일간 기사들 -->
                                     </ul>
                                 </div>
                                 <div id="tab-2" class="tab-content" style="border: none;">
                                     <!-- 주간 내용 -->
                                     <ul>
-                                        <li>홍종효 아메리카노 마니 먹으면 잠 안와</li>
-                                        <li>김기정 아샷추 빠돌이</li>
-                                        <li>설희민 경주 너무 멀어</li>
-                                        <li>우나희 9시20분까지 와라 나희봇</li>
-                                        <li>이연 파이널때 무조건 PM 확정</li>
+                                        <c:forEach items="${AI}" var="AI"> 
+                                        <li><a href="/get?bno=${AI.bno}">
+                                        <c:out value="${fn:substring(AI.title, 0, 20)}"/> ${fn:length(AI.title) > 20 ? '...' : ''}
+                                        </a></li>
+                                    </c:forEach>
                                        
                                         <!-- 기타 주간 기사들 -->
                                     </ul>
@@ -206,11 +276,23 @@
                                 <div id="tab-3" class="tab-content" style="border: none;">
                                     <!-- 월간 내용 -->
                                     <ul>
-                                        <li>구건모 통합관리자 고마워</li>
-                                        <li>박지해 해? 헤? 햬? 혜? 헷갈려 정확히 말해</li>
-                                        <li>박수민 목소리 너무 커 귀에서 피나와</li>
-                                        <li>정인수 오늘 점심 뭐먹어</li>
-                                        <li>이소담 식단 너무 힘들어</li>
+                                        <c:forEach items="${SPACE}" var="SPACE"> 
+                                        <li><a href="/get?bno=${SPACE.bno}">
+                                        <c:out value="${fn:substring(SPACE.title, 0, 20)}"/> ${fn:length(SPACE.title) > 20 ? '...' : ''}
+                                        </a></li>
+                                    </c:forEach>
+                                        
+                                        <!-- 기타 월간 기사들 -->
+                                    </ul>
+                                </div>
+                                <div id="tab-4" class="tab-content" style="border: none;">
+                                    <!-- 월간 내용 -->
+                                    <ul>
+                                        <c:forEach items="${NATURE}" var="NATURE"> 
+                                        <li><a href="/get?bno=${NATURE.bno}">
+                                        <c:out value="${fn:substring(NATURE.title, 0, 20)}"/> ${fn:length(NATURE.title) > 20 ? '...' : ''}
+                                        </a></li>
+                                       </c:forEach>
                                         
                                         <!-- 기타 월간 기사들 -->
                                     </ul>
@@ -221,8 +303,8 @@
                     <!-- Side widget-->
                     <!-- 좌측 광고2 -->
                     <div class="card mb-4">
-                    	<a href="https://www.tiktok.com/explore">
-                        	<img src="../resources/img/ad2.jpg" class="card-img-top" alt="광고 이미지">
+                       <a href="https://www.tiktok.com/explore">
+                           <img src="../resources/img/ad2.jpg" class="card-img-top" alt="광고 이미지">
                         </a>
                     </div>
                 </div>

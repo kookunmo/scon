@@ -28,9 +28,10 @@ public class NboardController {
    
    //목록 GET -- main page
    @GetMapping("/main")
-   public void main(Criteria cri, Model model ,@RequestParam(value = "ccode", defaultValue = "0") String ccode) {
+   public void main(Criteria cri, Model model , @RequestParam(value = "ccode", defaultValue = "0") String ccode) {
 	  log.info("ccode는 : "+ ccode);
-      if(ccode.equals("0")) {
+	  log.info("cri는 : "+ cri);
+      if(ccode.equals("0")){
 	   model.addAttribute("list", service.getList(cri));
       };
       if(ccode.equals("1")) {
@@ -46,52 +47,71 @@ public class NboardController {
      	   model.addAttribute("list", service.getList4(cri));
       };
       
+      
       model.addAttribute("IT", service.getIT());
       model.addAttribute("AI", service.getAI());
       model.addAttribute("SPACE", service.getSPACE());
       model.addAttribute("NATURE", service.getNATURE());
       model.addAttribute("ccode",ccode);
-      int total = service.getTotal(cri); // 전체글수
+      int total = service.getTotal(cri); //전체글수
+      log.info(cri);
       model.addAttribute("pageMaker", new PageDTO(cri, total));
    }
 
    ////////////////////////////////////////////////////////////////////////////
    //등록 GET
-   @GetMapping("/register")
-   public void register() {}
+ //등록 GET
+   @GetMapping("/insert")
+	public void register() {}
+
+	//등록 POST
+	@PostMapping("/insert")
+	public String register(NboardVO board, RedirectAttributes rttr) {		
+		service.register(board);
+		return "redirect:/main";
+	}
    
-   
-   //등록 POST
-   @PostMapping("/register")
-   public String register(NboardVO board, RedirectAttributes rttr) {
-      return "redirect:/main";
-   }
    ////////////////////////////////////////////////////////////////////////////
    
 
    //상세보기 GET  
    @GetMapping({"/get"})
-   public void get(@RequestParam("bno") Long bno, @ModelAttribute("cri") Criteria cri , Model model ) {
-	   service.updateReadCount(bno);
-	   model.addAttribute("board", service.get(bno)); // 특정 게시글을 모델에 추가
+   public void get(@RequestParam("bno") Long bno, @RequestParam(value = "ccode", defaultValue = "0") String ccode,@ModelAttribute("cri") Criteria cri , Model model ) {
+      service.updateReadCount(bno);
+      model.addAttribute("board", service.get(bno)); // 특정 게시글을 모델에 추가
+      
+      model.addAttribute("IT", service.getIT());
+      model.addAttribute("AI", service.getAI());
+      model.addAttribute("SPACE", service.getSPACE());
+      model.addAttribute("NATURE", service.getNATURE());
+      model.addAttribute("ccode",ccode);
+
+	   
    }
    
    // 수정 GET
    @GetMapping({"/modify"})
-   public void modify(@RequestParam("bno") Long bno, @ModelAttribute("cri") Criteria cri , Model model ) {}
-   
-   // 수정 POST
-   @PostMapping("/modify")
-   public String modify(NboardVO board, RedirectAttributes rttr) {
-      return "redirect:";
-   }
-   
-   // 삭제 POST
-   @PostMapping("/remove")
-   public String remove(@RequestParam("bno") Long bno,  RedirectAttributes rttr) {
-      
-      return "redirect:";
-   }
+	public void modify(@RequestParam("bno") Long bno, @ModelAttribute("cri") Criteria cri , Model model ) { 
+		model.addAttribute("board", service.get(bno));
+	}
+	
+	// 수정 POST
+	@PostMapping("/modify")
+	public String modify(NboardVO board, RedirectAttributes rttr) {
+			if(service.modify(board)) { //수정처리가 되었으면
+				rttr.addFlashAttribute("result", "수정완료");
+			}
+			return "redirect:/get?bno=" + board.getBno();
+	}
+	
+	// 삭제 POST
+	@GetMapping("/remove")
+	public String remove(@RequestParam("bno") Long bno,  RedirectAttributes rttr) {
+		if(service.remove(bno)) { //삭제처리가 되었으면
+			rttr.addFlashAttribute("result", "삭제완료");
+		}
+		return "redirect:/main";
+	}
    
    
    
