@@ -1,51 +1,25 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>  
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> <!-- JSTL Core 태그 라이브러리를 사용하기 위한 선언 -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> <!-- JSTL Format 태그 라이브러리를 사용하기 위한 선언 -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>SCON</title>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="../resources/js/scripts.js"></script>
+    <link href="../resources/css/styles.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&display=swap" rel="stylesheet">
+
 <script>
-
-$(document).ready(function(){
-    // 마우스 올렸을 때 이벤트
-    $(".tab-link").mouseenter(function(){
-        var tab_id = $(this).attr('data-tab');
-
-        $(".tab-link").removeClass('current');
-        $(".tab-content").removeClass('current');
-
-        $(this).addClass('current');
-        $("#"+tab_id).addClass('current');
-    });
-
-    // 마우스가 모든 탭에서 벗어났을 때 일간 탭으로 돌아가기
-    $(".ranking-tabs").mouseleave(function(){
-        $(".tab-link").removeClass('current');
-        $(".tab-content").removeClass('current');
-
-        $('.tab-link[data-tab="tab-1"]').addClass('current');
-        $('#tab-1').addClass('current');
-    });
-
-    // 페이지 로드 시 일간 탭 활성화
-    $('.tab-link[data-tab="tab-1"]').addClass('current');
-    $('#tab-1').addClass('current');
-    
-
-   
-	
-
-});
-
 
 $(document).ready(function () {
     var visibleItems = 5;
@@ -66,13 +40,10 @@ $(document).ready(function () {
     $("#flipBtn").hide();
 });
 
-
-
 </script>
 
     <!-- Core theme JS-->
     
-<link href="../resources/css/styles.css" rel="stylesheet" />
 <style>
         *{
            padding:0; margin:0; text-decoration:none; 
@@ -80,17 +51,17 @@ $(document).ready(function () {
 </style>
 </head>
 <body>
-    <div id="header"><!--전체 감싸기-->
-        <div class="logo">로고</div>
-        <div class="logo2">
-            <a href="/main">
-                <img src="../resources/img/로고 copy.png" alt="로고 위치" >
-            </a>
-        </div>
-        <div class="mypage">
-            <a class="btn btn-primary" href="#top">관리자</a>
-        </div>
-  </div>
+    <div id="header">
+		<!--전체 감싸기-->
+		<div class="logo">로고</div>
+		<div class="logo2">
+			<a href="/main"> <img src="../resources/img/로고 copy2.png"alt="로고 위치">
+			</a>
+		</div>
+		<div class="mypage">
+			<a class="badge2 bg-secondary text-decoration-none link-light" href="/insert">관리자</a>
+		</div>
+	</div>
          <!-- Responsive navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
@@ -115,10 +86,8 @@ $(document).ready(function () {
                 <div class="col-lg-8">
                     <!-- Post content-->
                     <article>
-                        <div class="card mb-4" >
-                        <a href="/insert">글쓰기</a>
-                        </div>
-                        	<c:if test="${pageMaker.cri.keyword !=null}">
+                    <div class="mb-4" >
+                    	<c:if test="${pageMaker.cri.keyword !=null}">
                         		<h4>
 								<c:choose>
 									<c:when test="${pageMaker.cri.type=='T'}">
@@ -133,7 +102,9 @@ $(document).ready(function () {
 								</c:choose>  
 								-<strong>'${pageMaker.cri.keyword}'</strong> 검색결과 </h4>
                         	</c:if>
-                        	<c:if test="${pageMaker.cri.keyword ==null}">
+                        </div>	
+                       
+                        <c:if test="${pageMaker.cri.keyword ==null}">
                         	<h4>헤드라인 뉴스 - 
 		                      	<c:if test="${ccode == '0'}">최신</c:if>
 								<c:if test="${ccode == '1'}">AI</c:if>
@@ -142,6 +113,8 @@ $(document).ready(function () {
 								<c:if test="${ccode == '4'}">자연</c:if>
                        		</h4>
                        		</c:if>
+                       	 <div class="card mb-4" >
+                        </div>	
                         <!-- Post content-->
                         <section class="mb-5" style="height: auto;">
 						<c:forEach items="${list}" var="main" varStatus="loop">
@@ -150,7 +123,7 @@ $(document).ready(function () {
 								<div
 									style="width: auto; height: 150px; overflow: auto; overflow-y: hidden; overflow-x: hidden;">
 									<div
-										style="width: 150px; height: 105px; margin: 5px; padding: 5px; float: left;">
+										style="width: 150px; height: 140px; margin: 5px; padding: 5px; float: left;">
 										<img src="../resources/img/${main.fileurl}" alt="이미지"
 											style="width: 100%; height: 100%; object-fit: cover;">
 									</div>
@@ -162,30 +135,15 @@ $(document).ready(function () {
 											</p> <c:out value="${fn:substring(main.content, 0, 80)}" />
 											${fn:length(main.content) > 80 ? '...' : ''}
 
-											<table style="width: 100%; margin-top: 2%;">
-												<tr>
-													<td class="dateCell"
-														style="padding: 10px; text-align: left;">
-														<div>
-															<span class="label">등록날짜:</span>
-															<fmt:formatDate value="${main.wdate}"
-																pattern="yyyy년 MM월 dd일 " />
-														</div>
-													</td>
-
-													<td></td>
-													<td></td>
-													<td></td>
-
-													<td class="authorCell"
-														style="padding: 10px; text-align: left;">
-														<div>
-															<span class="label">글쓴이:</span>
-															<c:out value="${main.writer}"></c:out>
-														</div>
-													</td>
-												</tr>
-											</table>
+											<div>
+											    <table style="width: 100%; margin-top: 2%;">
+											        <tr>
+											            <td class="authorCell" style="text-align: left;">
+											                작성자: <c:out value="${main.writer}" /> | 등록일: <fmt:formatDate value="${main.wdate}" pattern="yyyy-MM-dd" />
+											            </td>
+											        </tr>
+											    </table>
+											</div>
 
 										</a>
 									</div>
@@ -216,15 +174,15 @@ $(document).ready(function () {
                         <div class="card-header">검색하기</div>
                         <div class="card-body">
                             <form id="searchForm" method="get">
-	                            <select name="type" style="width: 90px; height: 35px;">
+	                            <select name="type" style="width: 75px; height: 35px;">
 	                                <option value="T" selected>제목</option>
 	                                <option value="C">내용</option>
 	                                <option value="W">기자명</option>	
 	                            </select>
-	                            <input name="keyword" style="width: 200px; height: 35px;">
+	                            <input name="keyword" style="width: 180px; height: 35px;">
 	                            <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
 	                            <input type="hidden" id="amount" name="amount" value="${pageMaker.cri.amount}">
-	                            <button class="btn btn-primary" id="button-search" type="submit" style="width: 80px;">검색</button>
+	                            <button class="btn btn-primary" id="button-search" type="submit">검색</button>
                             </form>
                         </div>
                     </div>

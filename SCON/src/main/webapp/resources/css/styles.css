@@ -13,7 +13,27 @@
 /* 윤기가 추가한 것 */
  .navbar-nav .nav-link {
   margin-right: 40px; /* 원하는 간격으로 조정하세요 */
+  color: white !important; /* 흰색으로 글자색 지정 */
 }
+.hahmlet-<uniquifier> {
+  font-family: "Hahmlet", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+master{
+  color: #fff !important;
+  background-color: RGBA(108, 117, 125, var(--bs-bg-opacity, 1)) !important;
+  font-family: "Hahmlet", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  width: 100px;
+  height: 100px;
+}  
+article {
+   min-width: 800px;
+} 
 /* 구씨의 추가 */
 pre{
 	white-space: pre-wrap;
@@ -29,6 +49,7 @@ a {
 .ranking-tabs>div>ul>li{
 	list-style-type: decimal;
 }
+
 /* 구씨의 추가.end */
 .navbar-toggler {
   margin-left: auto;
@@ -51,6 +72,11 @@ a {
   white-space: nowrap;
   vertical-align: baseline;
   border-radius: var(--bs-badge-border-radius);
+  
+  font-family: "Hahmlet", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
 }
 
 .badge2:empty {
@@ -91,6 +117,8 @@ a {
             width:30%;
             height: 100%;
             background: #212529;
+            
+              
 
         }
         .logo2{
@@ -104,16 +132,14 @@ a {
             justify-content: center;
             align-items: center;
         }
-        .logo2 img {
-            
-            width: 80%;
-            height: 100%;
-            object-fit: cover; 
-
-        }
+       .logo2 img {
+		    width: 100%; /* 최대 너비는 부모 요소의 100% */
+		    height: 100%; /* 최대 높이는 부모 요소의 100% */
+		    object-fit: contain; /* 이미지가 요소에 맞게 조절되도록 설정 */
+		}
         .mypage{
             position: absolute;
-            left:75%; 
+            left:90%; 
             width: auto;
             height: 100%;
             background:#212529;
@@ -267,6 +293,11 @@ h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
   margin-bottom: 0.5rem;
   font-weight: 500;
   line-height: 1.2;
+  
+  font-family: "Hahmlet", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
 }
 
 h1, .h1 {
@@ -488,6 +519,11 @@ th {
 
 label {
   display: inline-block;
+  font-family: "Hahmlet", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  
 }
 
 button {
@@ -2949,6 +2985,12 @@ textarea.form-control-lg {
   border-radius: var(--bs-btn-border-radius);
   background-color: var(--bs-btn-bg);
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  font-family: "Hahmlet", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+
+
 }
 @media (prefers-reduced-motion: reduce) {
   .btn {
@@ -3008,6 +3050,11 @@ textarea.form-control-lg {
   --bs-btn-disabled-color: #fff;
   --bs-btn-disabled-bg: #0d6efd;
   --bs-btn-disabled-border-color: #0d6efd;
+  
+  font-family: "Hahmlet", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
 }
 
 .btn-secondary {
@@ -3940,6 +3987,11 @@ textarea.form-control-lg {
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
+  
+  font-family: "Hahmlet", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
 }
 .navbar-nav .show > .nav-link,
 .navbar-nav .nav-link.active {
@@ -4326,6 +4378,11 @@ textarea.form-control-lg {
   background-clip: border-box;
   border: var(--bs-card-border-width) solid var(--bs-card-border-color);
   border-radius: var(--bs-card-border-radius);
+ 
+  font-family: "Hahmlet", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
 }
 .card > hr {
   margin-right: 0;
@@ -4354,6 +4411,7 @@ textarea.form-control-lg {
   flex: 1 1 auto;
   padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
   color: var(--bs-card-color);
+  min-width: 200px;
 }
 
 .card-title {
@@ -4758,6 +4816,11 @@ textarea.form-control-lg {
   white-space: nowrap;
   vertical-align: baseline;
   border-radius: var(--bs-badge-border-radius);
+  
+  font-family: "Hahmlet", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
 }
 .badge:empty {
   display: none;
@@ -7806,6 +7869,10 @@ textarea.form-control-lg {
 
 .mb-2 {
   margin-bottom: 0.5rem !important;
+    font-family: "Hahmlet", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
 }
 
 .mb-3 {
@@ -7814,10 +7881,18 @@ textarea.form-control-lg {
 
 .mb-4 {
   margin-bottom: 1.5rem !important;
+  font-family: "Hahmlet", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
 }
 
 .mb-5 {
   margin-bottom: 3rem !important;
+  font-family: "Hahmlet", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
 }
 
 .mb-auto {
@@ -8078,6 +8153,10 @@ textarea.form-control-lg {
 
 .fs-5 {
   font-size: 1.25rem !important;
+  font-family: "Hahmlet", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
 }
 
 .fs-6 {
@@ -8106,6 +8185,10 @@ textarea.form-control-lg {
 
 .fw-bold {
   font-weight: 700 !important;
+    font-family: "Hahmlet", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
 }
 
 .fw-semibold {
@@ -8114,6 +8197,11 @@ textarea.form-control-lg {
 
 .fw-bolder {
   font-weight: bolder !important;
+   font-family: "Hahmlet", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  
 }
 
 .lh-1 {
@@ -8241,6 +8329,10 @@ textarea.form-control-lg {
 .text-muted {
   --bs-text-opacity: 1;
   color: #6c757d !important;
+  font-family: "Hahmlet", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
 }
 
 .text-black-50 {
