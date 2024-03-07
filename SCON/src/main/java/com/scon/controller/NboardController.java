@@ -112,7 +112,67 @@ public class NboardController {
 		}
 		return "redirect:/main";
 	}
-   
+	// 관리자 페이지로 이동하는 메서드
+		@PostMapping("/admin")
+		public String adminPage(@RequestParam("password") String password, RedirectAttributes rttr) {
+		    // 비밀번호 확인
+		    if (service.checkPassword(password)) {
+		        // 비밀번호가 일치하면 관리자 페이지로 이동
+		        return "redirect:/insert";
+		    } else{
+		        // 비밀번호가 일치하지 않으면 오류 메시지 전달 후 페이지 반환
+		    	rttr.addFlashAttribute("adminx", "x");
+		        log.info(rttr);
+		    	return "redirect:/main"; // 여기에 해당하는 메인 페이지로 이동
+		    }
+		    
+		}
+		
+		
+		@PostMapping("/admin1")
+		public String adminPage1(@RequestParam("password") String password,@RequestParam("bno") Long bno, RedirectAttributes rttr) {
+		    // 비밀번호 확인
+		    if (service.checkPassword(password)) {
+		        // 비밀번호가 일치하면 관리자 페이지로 이동
+		    	return "redirect:/insert";
+		    } else{
+		        // 비밀번호가 일치하지 않으면 오류 메시지 전달 후 페이지 반환
+		    	rttr.addFlashAttribute("adminx", "x");
+		        log.info(rttr);
+		    	return "redirect:/get?bno=" + bno; 
+		    }
+		    
+		}
+		
+		@PostMapping("/admin2")
+		public String adminPage2(@RequestParam("password") String password,@RequestParam("bno") Long bno, RedirectAttributes rttr) {
+		    // 비밀번호 확인
+		    if (service.checkPassword(password)) {
+		        // 비밀번호가 일치하면 관리자 페이지로 이동
+		    	return "redirect:/modify?bno=" + bno;
+		    } else{
+		        // 비밀번호가 일치하지 않으면 오류 메시지 전달 후 페이지 반환
+		    	rttr.addFlashAttribute("adminx", "x");
+		        log.info(rttr);
+		    	return "redirect:/get?bno=" + bno; 
+		    }
+		    
+		}
+		
+		@PostMapping("/admin3")
+		public String adminPage3(@RequestParam("password") String password,@RequestParam("bno") Long bno, RedirectAttributes rttr) {
+		    // 비밀번호 확인
+		    if (service.checkPassword(password)) {
+		        // 비밀번호가 일치하면 관리자 페이지로 이동
+		        return "redirect:/remove?bno=" + bno;
+		    } else{
+		        // 비밀번호가 일치하지 않으면 오류 메시지 전달 후 페이지 반환
+		    	rttr.addFlashAttribute("adminx", "x");
+		        log.info(rttr);
+		    	return "redirect:/get?bno=" + bno; 
+		    }
+		    
+		}
    
    
 

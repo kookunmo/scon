@@ -43,9 +43,38 @@
 				alt="로고 위치">
 			</a>
 		</div>
-		<div class="mypage">
-			<a class="badge2 bg-secondary text-decoration-none link-light" href="/insert">관리자</a>
+		<!-- 관리자 버튼 -->
+	<div class="mypage">
+			<a id="adminBtn"
+				class="badge2 bg-secondary text-decoration-none link-light" href="#"
+				data-bs-toggle="modal" data-bs-target="#adminModal1">관리자</a>
 		</div>
+
+		<div class="modal fade" id="adminModal1" tabindex="-1"
+			aria-labelledby="adminModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="adminModalLabel">관리자 모드</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<!-- 로그인 폼 -->
+						<form id="adminForm" action="/admin1" method="post">
+							<div class="mb-3">
+								<input	type="password" name="password" class="form-control"
+									id="password" placeholder="관리자번호" required>
+							</div>
+							<input type="hidden" name="bno" value="${board.bno}">
+							<button type="submit" class="badge2 bg-secondary text-decoration-none link-light">확인</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 모달 창 -->
 	</div>
 	<!-- Responsive navbar-->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -131,18 +160,72 @@
 							<fmt:formatDate value="${board.wdate}" pattern="yyyy-MM-dd HH:mm" />
 						</div>
 
+						<!-- 수정 삭제 버튼 시작 -->
 						<div class="ms-auto2">
-
 							<a class="badge2 bg-secondary text-decoration-none link-light"
-								href="/modify?bno=${board.bno}">수정</a> <a
-								class="badge2 bg-secondary text-decoration-none link-light"
-								href="/remove?bno=${board.bno}">삭제</a>
+								data-bs-toggle="modal" data-bs-target="#adminModal2">수정</a>
+							<!-- 수정 모달창 -->
+							<div class="modal fade" id="adminModal2" tabindex="-1"
+								aria-labelledby="adminModalLabel2" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="adminModalLabel2">관리자 모드</h5>
+											<button type="button" class="btn-close"
+												data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="modal-body">
+											<!-- 로그인 폼 -->
+											<form id="adminForm" action="/admin2" method="post">
+												<div class="mb-3">
+													 
+													<input type="password" name="password" class="form-control"
+														id="password" placeholder="관리자번호" required>
+												</div>
+												<input type="hidden" name="bno" value="${board.bno}">
+												<button type="submit"
+													class="badge2 bg-secondary text-decoration-none link-light">확인</button>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- 삭제 버튼 -->
+							<a class="badge2 bg-secondary text-decoration-none link-light"
+								data-bs-toggle="modal" data-bs-target="#adminModal3">삭제</a>
+							<!-- 삭제 모달창 -->
+							<div class="modal fade" id="adminModal3" tabindex="-1"
+								aria-labelledby="adminModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="adminModalLabel">관리자 모드</h5>
+											<button type="button" class="btn-close"
+												data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="modal-body">
+											<!-- 로그인 폼 -->
+											<form id="adminForm" action="/admin3" method="post">
+												<div class="mb-3">
+													<input type="password" name="password" class="form-control"
+														id="password" placeholder="관리자번호" required>
+												</div>
+												<input type="hidden" name="bno" value="${board.bno}">
+												<button type="submit"
+													class="badge2 bg-secondary text-decoration-none link-light">확인</button>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
+						<!-- 수정 삭제 버튼 END -->
 					</header>
 					<!-- 메인 광고1 -->
 					<div class="card mb-4">
 						<a href="https://www.naver.com/"> <img
-							src="../resources/img/ad3.gif" class="card-img-top" alt="광고 이미지"
+							src="../resources/img/ad4.gif" class="card-img-top" alt="광고 이미지"
 							width="900" height="150">
 						</a>
 					</div>

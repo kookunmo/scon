@@ -58,10 +58,71 @@ $(document).ready(function () {
 			<a href="/main"> <img src="../resources/img/로고 copy2.png"alt="로고 위치">
 			</a>
 		</div>
-		<div class="mypage">
-			<a class="badge2 bg-secondary text-decoration-none link-light" href="/insert">관리자</a>
-		</div>
-	</div>
+ <!-- 관리자 버튼 -->
+    <!-- 관리자 버튼 -->
+        <div class="mypage">
+            <a id="adminBtn" class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#adminModal">관리자</a>
+        </div>
+    </div>
+
+    <!-- 모달 창 -->
+ <div class="modal fade" id="adminModal" tabindex="-1" aria-labelledby="adminModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="adminModalLabel">관리자 모드</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- 로그인 폼 -->
+                <form th:action="@{/auth/loginProc}" th:method="POST">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">아이디</label>
+                        <input type="text" th:name="username" class="form-control" id="username" placeholder="아이디" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">비밀번호</label>
+                        <input type="password" th:name="password" class="form-control" id="password" placeholder="비밀번호" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">로그인</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+  <!-- 모달 창 -->
+    <div class="modal fade" id="adminModal" tabindex="-1" aria-labelledby="adminModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="adminModalLabel">관리자 모드</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- 로그인 폼 -->
+                <form th:action="@{/auth/loginProc}" th:method="POST">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label for="username" class="form-label">아이디</label>
+                                    <input type="text" th:name="username" class="form-control" id="username" placeholder="아이디" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">비밀번호</label>
+                                    <input type="password" th:name="password" class="form-control" id="password" placeholder="비밀번호" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block">로그인</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 모달창 end--------------------------------------------------- -->				
          <!-- Responsive navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">

@@ -116,6 +116,11 @@ public class NboardServiceImpl implements NboardService{
 		return mapper.getListWithPaging4(cri);
 	}
 
+	private static final String ADMIN_PASSWORD = "1101";
 
+    @Override
+    public boolean checkPassword(String inputPassword) {
+        return ADMIN_PASSWORD.equals(inputPassword);
+    }
 	
 }

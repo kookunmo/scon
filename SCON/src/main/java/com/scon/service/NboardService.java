@@ -46,4 +46,6 @@ public interface NboardService {
 	public void updateReadCount(Long bno);
 //	public List<NboardVO> getWeek();
 //	public List<NboardVO> getMonth();
+	
+	 boolean checkPassword(String inputPassword);
 }

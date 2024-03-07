@@ -31,9 +31,9 @@ master{
   width: 100px;
   height: 100px;
 }  
-article {
+/* article {
    min-width: 800px;
-} 
+}  */
 /* 구씨의 추가 */
 pre{
 	white-space: pre-wrap;
